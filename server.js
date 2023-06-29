@@ -61,7 +61,6 @@ const io = new Server(httpServer, {
     origin: true,
     credentials: true,
   },
-  transports: ["websocket"],
 });
 
 io.on("connection", async (socket) => {
