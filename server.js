@@ -61,6 +61,7 @@ const io = new Server(httpServer, {
     origin: true,
     credentials: true,
   },
+  transports: ["websocket"],
 });
 
 io.on("connection", async (socket) => {
@@ -74,6 +75,7 @@ io.on("connection", async (socket) => {
   });
   socket.on("my message", (msg) => {
     // io.emit("my broadcast", `server: ${msg}`);
+
     io.emit("my broadcast", msg);
   });
 
