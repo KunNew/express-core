@@ -63,23 +63,28 @@ const io = new Server(httpServer, {
   },
 });
 
-// io.on("connection", async (socket) => {
-//   console.log("a user connected");
-//   socket.on("disconnect", () => {
-//     console.log("user disconnected");
-//   });
+io.on("connection", async (socket) => {
+  console.log("a user connected");
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
 
-//   socket.on("my message", (msg) => {
-//     console.log("message: " + msg);
-//   });
-//   socket.on("my message", (msg) => {
-//     // io.emit("my broadcast", `server: ${msg}`);
-//     io.emit("my broadcast", msg);
-//   });
-// });
+  socket.on("my message", (msg) => {
+    console.log("message: " + msg);
+  });
+  socket.on("my message", (msg) => {
+    // io.emit("my broadcast", `server: ${msg}`);
+    io.emit("my broadcast", msg);
+  });
+
+  socket.on("remove-user", (user) => {
+    // console.log("remove user", user);
+    io.emit("delete-user", user);
+  });
+});
 
 // listen on port 5000
-app.listen(PORT, () => {
+httpServer.listen(PORT, () => {
   console.log(
     `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
   );
